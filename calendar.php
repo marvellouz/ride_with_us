@@ -1,5 +1,4 @@
 <?php
-require_once("./libs/Smarty.class.php");
 require_once("./helpers.php");
 
 function first_week($month, $year) {
@@ -40,7 +39,12 @@ function last_week($month, $year, $actday) {
   return $cal;
 }
 
-function create_month($month, $year) {
+function create_month($month=NULL, $year=NULL) {
+  $today = getdate();
+  if($month==NULL || $year==NULL) {
+    $month = $today['mon'];
+    $year = $today['year'];
+  }
   $last_day = getdate(mktime(0, 0, 0, $month+1, 0, $year));
   $first_week = first_week($month, $year);
   $cal = $first_week[0];
@@ -57,18 +61,9 @@ function create_month($month, $year) {
   }
   $cal = $cal.last_week($month, $year, $actday);
 
-
-  return $cal;
+  return array(
+    'assign' => array('cal' => $cal, 'today' => $today),
+    'display' => 'templates_c/index.tpl');
 }
-
-
-
-
-
-$today = getdate();
-
-$smarty->assign('today', getdate());
-$smarty->assign('cal', create_month($today['mon'], $today['year']));
-$smarty->display('templates_c/index.tpl');
 
 ?>
