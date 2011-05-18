@@ -18,15 +18,7 @@ content="text/html;charset=utf-8" />
 </head>
 <body>
 
-<table>
-  <tr>
-    <tr><th colspan="7">{$today['month']} - {$today['year']}</th></tr>
-  </tr>
-  <tr>
-    <td>Mo</td><td>Tu</td><td>We</td><td>Th</td><td>Fr</td><td>Sa</td><td>Su</td>
-  </tr>
   {$cal}
-</table>
 
 </body>
 </html>

@@ -16,6 +16,10 @@ function dispatch() {
     die("Invalid URL");
   }
 
+  function not_empty($var) {
+    return !empty($var);
+  }
+
   //extract parameters
   $url_pieces = explode("/",$_SERVER["PATH_INFO"]);
   $action = $url_pieces[1];
@@ -23,6 +27,7 @@ function dispatch() {
   if(count($url_pieces)>2) {
     $params = array_slice($url_pieces, 2);
   }
+  $params = array_filter($params, "not_empty");
 
   //when no action is passed default action is performed
   if(empty($action)) {
