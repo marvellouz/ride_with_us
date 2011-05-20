@@ -53,8 +53,8 @@ function navigation($month, $year) {
     $next_month -= 12;
     $next_year++;
   }
-  $nav = "<a href='/xampp/ride_with_us/dispatch.php/calendar/$prev_month/$prev_year/'>&lt;&lt;</a>";
-  $nav = $nav."<a href='/xampp/ride_with_us/dispatch.php/calendar/$next_month/$next_year/'>&gt;&gt;</a>";
+  $nav = "<a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$prev_month/$prev_year/'>&lt;&lt;</a>";
+  $nav = $nav."<a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$next_month/$next_year/'>&gt;&gt;</a>";
   return $nav;
 
 }
