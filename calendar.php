@@ -75,7 +75,7 @@ function create_month($arr) {
 	<tr><th colspan='7'>$month - $year</th></tr>
     </tr>
     <tr>
-      <td>Mo</td><td>Tu</td><td>We</td><td>Th</td><td>Fr</td><td>Sa</td><td>Su</td>
+      <td>П</td><td>В</td><td>С</td><td>Ч</td><td>П</td><td>С</td><td>Н</td>
     </tr>
   ";
   $last_day = getdate(mktime(0, 0, 0, $month+1, 0, $year));
