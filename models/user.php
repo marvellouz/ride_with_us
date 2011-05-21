@@ -15,6 +15,7 @@ class User extends Doctrine_Record {
     $this->hasMutator('password', '_encrypt_password');
     $this->hasMany('RideEvent', array('local' => 'id', 'foreign' => 'owner', 'refClass' => 'RideEvent'));
     $this->hasMany('RideEvent', array('local' => 'id', 'foreign' => 'user_id', 'refClass' => 'UserHasRideEvent'));
+    $this->hasMany('Comment', array('local' => 'id', 'foreign' => 'author', 'refClass' => 'Comment'));
   }
 
   protected function _encrypt_password($value) {
