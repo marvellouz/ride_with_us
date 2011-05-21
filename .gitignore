@@ -3,3 +3,4 @@
 *.swp
 libs
 doctrine1
+dbconf.php

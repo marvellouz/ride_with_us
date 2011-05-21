@@ -10,6 +10,7 @@ function dispatch() {
 
   global $smarty;
   global $routes;
+  global $isset_flash;
 
   //stear clear, allow only leters, numbers and slashes
   if(!empty($raw_route) and preg_match('/^[\p{L}\/\d]++$/uD', $_SERVER["PATH_INFO"]) == 0) {
@@ -47,7 +48,11 @@ function dispatch() {
     $smarty->assign($res_name, $res_value);
   }
   $smarty->display($results['display']);
-  
+
+  if($isset_flash) {
+    $_SESSION['flash']="";
+  }
+
   $action_function($params);
 
 }

@@ -1,9 +1,13 @@
 <?php
+require_once("./libs/Smarty.class.php");
+require_once("./doctrine_pi.php");
 
-require_once('./doctrine1/lib/Doctrine.php');
-spl_autoload_register(array('Doctrine','autoload'));
-Doctrine_Manager::getInstance()->setAttribute('model_loading', 'conservative');
-Doctrine::loadModels('models');
-$conn = Doctrine_Manager::connection('mysql://root:@localhost/ride_with_us');
+session_start();
+
+$smarty = new Smarty;
+
+$isset_flash = array_key_exists('flash', $_SESSION);
+$is_logged_user = array_key_exists('uid', $_SESSION);
+
 
 ?>
