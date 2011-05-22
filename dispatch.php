@@ -49,10 +49,6 @@ function dispatch() {
   }
   $smarty->display($results['display']);
 
-  if($isset_flash) {
-    $_SESSION['flash']="";
-  }
-
   $action_function($params);
 
 }

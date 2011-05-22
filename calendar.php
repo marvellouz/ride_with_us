@@ -1,6 +1,32 @@
 <?php
 require_once("./helpers.php");
 
+function make_day($day, $month, $year) {
+  $format = 'Y-m-d';
+  $date = "$year-$month-$day";
+  $events_query = "select * from ride_event where date(when_datetime) = '$date'";
+  $day_events = table_content($events_query);
+  $today = getdate();
+  $has_event = count($day_events);
+  $is_today = ($day == $today['mday'] && $month == $today['mon'] && $year ==$today['year'] );
+  if($is_today && $has_event) {
+    $day_html = "<td class='event' id='today'><a href='{$_SERVER["SCRIPT_NAME"]}/events/$day/$month/$year'><strong>$day</strong></a></td>";
+    return $day_html;
+  }
+  if ($has_event) {
+    $day_html = "<td class='event'><a href='{$_SERVER["SCRIPT_NAME"]}/events/$day/$month/$year'>$day</a></td>";
+    return $day_html;
+  }
+  if($is_today) {
+    $day_html = "<td id='today'><strong>$day<strong></td>";
+    return $day_html;
+  }
+
+  $day_html = "<td>$day</td>";
+  return $day_html;
+}
+
+
 function first_week($month, $year) {
   $first_day = getdate(mktime(0, 0, 0, $month, 1, $year));
   $first_wday = ($first_day['wday']==0)?(7):($first_day['wday']);
@@ -12,7 +38,7 @@ function first_week($month, $year) {
   $actday = 0;
   for($i = $first_wday; $i <= 7; $i++) {
     $actday++;
-    $cal = $cal."<td>$actday</td>";
+    $cal = $cal.make_day($actday, $month, $year);
   }
   $cal = $cal.'</tr>';
   return array($cal, $actday);
@@ -28,7 +54,7 @@ function last_week($month, $year, $actday) {
     for ($i=0; $i<7;$i++) {
       $actday++;
       if ($actday <= $last_day['mday']) {
-	$cal = $cal."<td>$actday</td>";
+	$cal = $cal.make_day($actday, $month, $year);
       }
       else {
 	$cal = $cal.'<td>&nbsp;</td>';
@@ -59,6 +85,7 @@ function navigation($month, $year) {
 
 }
 
+// $arr = array($month, $year)
 function create_month($arr) {
   $today = getdate();
   if(count($arr)!=2) {
@@ -88,7 +115,7 @@ function create_month($arr) {
     $cal = $cal.'<tr>';
     for ($j=0;$j<7;$j++) {
       $actday++;
-      $cal = $cal."<td>$actday</td>";
+      $cal = $cal.make_day($actday, $month, $year);
     }
     $cal = $cal.'</tr>';
   }
@@ -96,6 +123,7 @@ function create_month($arr) {
 
   $cal = $cal."</table>";
   $cal = $cal.navigation($month, $year);
+  
   return array(
     'assign' => array('cal' => $cal, 'today' => $today),
     'display' => 'templates_c/index.tpl');
