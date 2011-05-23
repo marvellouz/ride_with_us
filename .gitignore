@@ -4,5 +4,5 @@
 libs
 dbconf.php
 test.php
-templates_c/134698f94fc70d4dc67bb071fd3c80b5e24d4616.file.index.tpl.php
-templates_c/5b8af1a0bd9928ee0252a6e6dffba3d70a77f1ff.file.login.tpl.php
+
+templates_c/*.file.*.php
