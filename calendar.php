@@ -2,7 +2,6 @@
 require_once("./helpers.php");
 
 function make_day($day, $month, $year) {
-  $format = 'Y-m-d';
   $date = "$year-$month-$day";
   $events_query = "select * from ride_event where date(when_datetime) = '$date'";
   $day_events = table_content($events_query);
@@ -123,7 +122,9 @@ function create_month($arr) {
 
   $cal = $cal."</table>";
   $cal = $cal.navigation($month, $year);
-  
+
+  //TODO:  if user is logged in -> $user_cal
+
   return array(
     'assign' => array('cal' => $cal, 'today' => $today),
     'display' => 'templates_c/index.tpl');

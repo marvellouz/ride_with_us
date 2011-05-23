@@ -1,17 +1,25 @@
+<<<<<<< HEAD
 <?php /* Smarty version Smarty-3.0.7, created on 2011-05-23 13:16:55
+=======
+<?php /* Smarty version Smarty-3.0.7, created on 2011-05-23 10:20:27
+>>>>>>> 8bd559a7dc45b4d57ac94b3282ef60dc0a4f3d83
          compiled from "templates_c/index.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:199673994dd9656010f283-93891113%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:12255236254dda18cb791df0-13740155%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '134698f94fc70d4dc67bb071fd3c80b5e24d4616' => 
     array (
       0 => 'templates_c/index.tpl',
+<<<<<<< HEAD
       1 => 1306145587,
+=======
+      1 => 1306138518,
+>>>>>>> 8bd559a7dc45b4d57ac94b3282ef60dc0a4f3d83
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '199673994dd9656010f283-93891113',
+  'nocache_hash' => '12255236254dda18cb791df0-13740155',
   'function' => 
   array (
   ),
@@ -33,11 +41,10 @@ content="text/html;charset=utf-8" />
 <![endif]-->
 
 </head>
-<body>
-  <?php echo (($tmp = @$_smarty_tpl->getVariable('flash')->value)===null||$tmp==='' ? '' : $tmp);?>
+  <body>
+    
+      <?php echo $_smarty_tpl->getVariable('cal')->value;?>
 
-  <?php echo $_smarty_tpl->getVariable('cal')->value;?>
-
-
-</body>
+    
+  </body>
 </html>
