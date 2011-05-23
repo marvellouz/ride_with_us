@@ -4,5 +4,4 @@
 libs
 dbconf.php
 test.php
-
-templates_c/*.file.*.php
+templates_c/*.file*
