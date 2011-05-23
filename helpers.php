@@ -24,7 +24,7 @@ function execute_query($query_string) {
 
 function table_content($query_string) {
   global $mysqli;
-  $query_result = $mysqli->query($query_string);
+  $query_result = $mysqli->query(sanitize_string($query_string));
   $result = array();
   if($query_result) {
     while ($row = $query_result->fetch_assoc()) {
@@ -34,7 +34,7 @@ function table_content($query_string) {
   return $result;
 }
 
-/* function sanitize_my_sql($var)
+function sanitize_my_sql($var)
 {
     $var = mysql_real_escape_string($var);
     $var = sanitize_string($var);
@@ -48,7 +48,7 @@ function sanitize_string($var)
     $var = strip_tags($var);
     return $var;
 }
- */
+
 $is_logged_user = array_key_exists('uid', $_SESSION);
 
 
