@@ -24,7 +24,7 @@ function execute_query($query_string) {
 
 function table_content($query_string) {
   global $mysqli;
-  $query_result = $mysqli->query(sanitize_my_sql($query_string));
+  $query_result = $mysqli->query($query_string);
   $result = array();
   if($query_result) {
     while ($row = $query_result->fetch_assoc()) {

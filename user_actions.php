@@ -5,58 +5,58 @@ $salt1 = "#$%GHbA~f";
 $salt2 = "1-Q<$)!lD";
 
 
-  function create_user()
-//($uname, $email, $upass, $upass_confirm, $fname, $lname, $email)
+function create_user()
 {
 	global $salt1;
 	global $salt2;
 	
-	if(isset($_POST['reg_submit']))
+	if(isset($_POST['reg_submit']) )
 	{
-		/* $uname = get_data('uname');
+/* 		$uname = get_data('uname');
 		$email = get_data('email');
 		$upass = get_data('upass');
 		$upass_confirm = get_data('upass_confirm');
 		$fname = get_data('fname');
 		$lname = get_data('lname');
-		$email = get_data('email'); */
-
-		$uname = $_POST['uname'];
-		$email = $_POST['email'];
-		$upass = $_POST['upass'];
-		$upass_confirm = $_POST['upass_confirm'];
-		$fname = $_POST['fname'];
-		$lname = $_POST['lname'];
-		$email = $_POST['email'];		
-
-		$usalpass=md5("$salt1$upass$salt2");
+ */
+  		$uname = $_POST['uname'];
+ 		$email = $_POST['email'];
+ 		$upass = $_POST['upass'];
+ 		$upass_confirm = $_POST['upass_confirm'];
+ 		$fname = $_POST['fname'];
+ 		$lname = $_POST['lname'];
+		
+  		$usalpass=md5("$salt1$upass$salt2");
 		$usalpass_conf=md5("$salt1$upass_confirm$salt2");
 		
-		if($usalpass == $usalpass_conf)
+//		if($uname && $email && $upass && $upass_confirm && $fname && $lname)
+		if($uname !="")
 		{
-			$user_create_query="INSERT INTO user (username, email, password, fname, lname, is_admin) 
-								VALUES($uname, $email, $usalpass, $fname, $lname, 0)";
-			table_content($user_create_query);
-			echo "успешно създаден";
+			if($usalpass == $usalpass_conf)
+			{
+				$user_create_query="INSERT INTO user (username, email, password, fname, lname) 
+									VALUES('$uname', '$email', '$usalpass', '$fname', '$lname')";
+				execute_query($user_create_query);
+				echo "успешно създаден";
+			}
+			else
+			{
+				echo "Не са въведени еднакви пароли!"; 
+				//	header("Location: ./");
+			}
 		}
-		else
-		{
-			echo "Не са въведени еднакви пароли!"; 
-			//	header("Location: ./");
-		}
+		else 
+		echo "Има празно поле!";
 	}
-
-	
 	return array(
 	'assign' => array(''),
 	'display' => 'templates_c/register.tpl');
-	
 }
 
 function get_data($field)
 {
 	global $mysqli;
-	return $_POST[$field];
+	return $mysqli->real_escape_string($_POST[$field]);
 } 
  
 function check_login($uname, $upass)
