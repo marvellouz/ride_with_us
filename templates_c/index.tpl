@@ -16,9 +16,9 @@ content="text/html;charset=utf-8" />
 <![endif]-->
 
 </head>
-<body>
-  {$flash|default: ""}
-  {$cal}
-
-</body>
+  <body>
+    {block name=content}
+      {$cal}
+    {/block}
+  </body>
 </html>
