@@ -1,4 +1,7 @@
-﻿<form method="POST" action="register">
+﻿{extends file="templates_c/index.tpl"}
+{block name=content}
+
+<form method="POST" action=".">
 <label for="uname">Въведете потребителско име:</label>
 <br />
 <input type="text" id="uname" name="uname" />
@@ -25,3 +28,5 @@
 <br />
 <input type="submit" id="reg_submit" name="reg_submit" value="Register" />
 </form>
+
+{/block}

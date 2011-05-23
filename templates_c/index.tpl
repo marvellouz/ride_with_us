@@ -19,7 +19,9 @@ content="text/html;charset=utf-8" />
 <body>
 <div id="container">
 <div id="header">
+<a href="{$webroot}/calendar/">
 <h1>Карай с нас</h1>
+</a>
 <div id="menu">
 <ul>
 <li><a href="{$webroot}/calendar/">Начало</a></li>

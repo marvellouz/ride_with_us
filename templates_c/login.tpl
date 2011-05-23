@@ -1,4 +1,7 @@
-﻿<form method="post" action="login"> 
+﻿{extends file="templates_c/index.tpl"}
+{block name=content}
+
+<form method="post" action="login"> 
 	<label for="uname">Потребителско име: </label>
 	<br />
 	<input type="text" id="uname" name="uname"/>
@@ -9,3 +12,5 @@
 	<br/>
 	<input type="submit" name="login" value="Login"/>
 </form>
+
+{/block}
