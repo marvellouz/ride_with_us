@@ -1,10 +1,11 @@
-<form method="post" action="user_actions.php"> <!-- the action points to this same file. When the uname submits, the isset($_POST['login']) check will return true -->
-<!-- using the label fields is convenient but you can see the fields are not well arranged - a drawback compared to tables; can be fixed with some CSS tuning -->
-	<label for="uname">User name: </label>
+﻿<form method="post" action="login"> 
+	<label for="uname">Потребителско име: </label>
+	<br />
 	<input type="text" id="uname" name="uname"/>
 	<br/>
-	<label for="upass">Password: </label>
+	<label for="upass">Парола: </label>
+	<br />
 	<input type="password" id="upass" name="upass"/>
 	<br/>
-	<input type="submit" name="login" value="Login"/> <!-- we put a name to the submit button in order to check for submission - see up above -->
+	<input type="submit" name="login" value="Login"/>
 </form>
