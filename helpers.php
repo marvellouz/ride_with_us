@@ -49,9 +49,8 @@ function sanitize_string($var)
     $var = strip_tags($var);
     return $var;
 }
- 
+
+
 $is_logged_user = array_key_exists('uid', $_SESSION);
-
-
 
 ?>
