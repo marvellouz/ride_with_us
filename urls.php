@@ -10,6 +10,8 @@ require_once("./calendar_event.php");
 $routes = array(
   "calendar" => "create_month",
   "login" => "login",
-  "events" => "events",
+  "register" => "create_user",
+  "events" => "events",  
+  "logout" => "logout",
 );
 ?>
