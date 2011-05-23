@@ -6,8 +6,8 @@
 <meta http-equiv="content-type"
 content="text/html;charset=utf-8" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
-{*<link rel="stylesheet" href="xampp/fmi-php/HW5/site_media/style.css" type="text/css" media="screen" />*}
-{*<script type="text/javascript" src="/xampp/fmi-php/HW5/site_media/js/external.js">  *}
+<link rel="stylesheet" href="{$site_media}/style.css" type="text/css" media="screen" />
+{*<script type="text/javascript" src="/xampp/fmi-php/HW5/site_media/js/external.js"> *}
 </script>
 <!--[if lte IE 6]>
 <p bgcolor = "#7A0900">
@@ -16,9 +16,30 @@ content="text/html;charset=utf-8" />
 <![endif]-->
 
 </head>
-  <body>
-    {block name=content}
-      {$cal}
-    {/block}
-  </body>
+<body>
+<div id="container">
+<div id="header">
+<h1>Карай с нас</h1>
+<div id="menu">
+<ul>
+<li><a href="{$webroot}/calendar/">Начало</a></li>
+{if $is_logged_user}
+<li id="hello">Здравейте, {$user_name}! </li>
+<li><a href="{$webroot}/logout/">[изход]</a></li>
+{else}
+<li id="login"><a href="{$webroot}/login/">Вход</a></li>
+<li id="register"><a href="{$webroot}/register/">Регистрация</a></li>
+{/if}
+</ul>
+</div>
+
+</div>
+<div id="content">
+{block name=content}
+{$cal}
+{/block}
+</content>
+<div id=footer></div>
+</div>
+</body>
 </html>

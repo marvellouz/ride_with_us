@@ -78,8 +78,8 @@ function navigation($month, $year) {
     $next_month -= 12;
     $next_year++;
   }
-  $nav = "<a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$prev_month/$prev_year/'>&lt;&lt;</a>";
-  $nav = $nav."<a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$next_month/$next_year/'>&gt;&gt;</a>";
+  $nav = "<div id='nav'><a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$prev_month/$prev_year/'>&lt;&lt;</a>";
+  $nav = $nav."<a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$next_month/$next_year/'>&gt;&gt;</a></nav>";
   return $nav;
 
 }
@@ -95,8 +95,8 @@ function create_month($arr) {
     $month = $arr[0];
     $year = $arr[1];
   }
-  $cal = "
-  <table>
+  $cal = "<div id='cal'>
+  <table id='calendar'>
     <tr>
 	<tr><th colspan='7'>$month - $year</th></tr>
     </tr>
@@ -118,10 +118,11 @@ function create_month($arr) {
     }
     $cal = $cal.'</tr>';
   }
-  $cal = $cal.last_week($month, $year, $actday);
+  $cal .= last_week($month, $year, $actday);
 
-  $cal = $cal."</table>";
-  $cal = $cal.navigation($month, $year);
+  $cal .= "</table>";
+  $cal .= navigation($month, $year);
+  $cal .= "</div>";
 
   //TODO:  if user is logged in -> $user_cal
 

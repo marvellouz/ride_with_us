@@ -50,7 +50,11 @@ function sanitize_string($var)
     return $var;
 }
 
-
-$is_logged_user = array_key_exists('uid', $_SESSION);
+$is_logged_user = array_key_exists('uname', $_SESSION);
+$webroot = $_SERVER["SCRIPT_NAME"];
+$site_media = dirname($webroot)."/site_media";
+$smarty->assign('webroot', $webroot);
+$smarty->assign('site_media', $site_media);
+$smarty->assign('is_logged_user', $is_logged_user);
 
 ?>
