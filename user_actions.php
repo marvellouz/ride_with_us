@@ -74,6 +74,8 @@ function check_login($uname, $upass)
 
 function login()
 {
+
+	global $webroot;
 	if(isset($_POST['login']))
 	{
 		if(is_null($_POST['uname'] || is_null($_POST['upass'])))
@@ -86,13 +88,13 @@ function login()
 			$_SESSION['fname'] = $user['fname'];
 			$_SESSION['lname'] = $user['lname'];
 			
-			header("Location: calendar/");
-			exit;
+			header("Location: {$webroot}/calendar/");
+			//exit;
 		}
+
 		$_SESSION['flash'] = "Въвели сте грешно потребителско име/парола!";
+		header("Location: {$webroot}/login/");
 		
-		$_SESSION['flash'];
-		//header("Location: ./");
 	}
 		
 	return array(
@@ -102,12 +104,12 @@ function login()
 
 function logout()
 {
+
+	global $webroot;
 	session_destroy();
-	//header("Location: ./");	
-	return array(
-	'assign' => array(''),
-	'display' => 'templates_c/logout.tpl'
-	);
+	session_start();
+	$_SESSION['flash'] = "Успешно излязохте!";
+	header("Location: {$webroot}/calendar/");	
 }
 
 

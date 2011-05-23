@@ -37,6 +37,7 @@ content="text/html;charset=utf-8" />
 
 </div>
 <div id="content">
+{$flash|default:""}
 {block name=content}
 {$cal}
 {/block}
