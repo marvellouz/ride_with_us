@@ -26,38 +26,38 @@ function create_user()
 		if($uname && $email && $upass && $upass_confirm && $fname && $lname)
 		//if($uname !="")
 		{
-			if($usalpass === $usalpass_conf)
+			if(is_free($uname))
 			{
-				if(strl($uname) > 45)
+//				echo $uname;
+				if(is_valid_email($email))
 				{
-					$_SESSION['flash']="Потребителското име е твърде дълго!";
-				}
-				else 
-				if(strl($fname) > 100 || strl($lname) > 100)
-				{
-					$_SESSION['flash']="Името или фамилията Ви са прекалено дълги!";
-				}
-				else 
-				if(strlen($usalpass) > 100 || strl($usalpass)<1) 		//fix min-length after debugging
-				{
-					$_SESSION['flash'] = "Паролата е твърде дълга/къса!";
+					if(check_passwords($usalpass, $usalpass_conf))
+					{			
+							$user_create_query="INSERT INTO user (username, email, password, fname, lname) 
+												VALUES('$uname', '$email', md5('$usalpass'), '$fname', '$lname')";
+							execute_query($user_create_query);
+							$_SESSION['flash']="Успешна регистрация!";
+					}
+					else
+					{
+						$_SESSION['flash'] = "Не са въведени еднакви пароли!"; 
+						header("Location: {$webroot}/register");
+					}
 				}
 				else
-				{					
-					$user_create_query="INSERT INTO user (username, email, password, fname, lname) 
-										VALUES('$uname', '$email', md5('$usalpass'), '$fname', '$lname')";
-					execute_query($user_create_query);
-					$_SESSION['flash']="Успешна регистрация!";
+				{
+					$_SESSION['flash']= "Въвели сте невалиден email!";
+					header("Location: {$webroot}/register");
 				}
-				
 			}
 			else
 			{
-				$_SESSION['flash'] = "Не са въведени еднакви пароли!"; 
-				header("Location: ./");
+				$_SESSION['flash']= "Потребителското име е заето!";
+				header("Location: {$webroot}/register");
 			}
 		}
 		else { 
+		echo $uname;
 		$_SESSION['flash'] = "Има празно поле!";
 		header("Location: {$webroot}/register");
 		}
@@ -67,6 +67,22 @@ function create_user()
 	'display' => 'templates_c/register.tpl');
 }
 
+function is_free($uname)
+{
+	$query = "SELECT * FROM user WHERE username='$uname'";
+	$result = table_content($query);
+	if(count($result) == 0) return true;
+	else return false;
+}
+
+function is_valid_email($email) {
+  return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email);
+}
+
+function check_passwords($pass1, $pass2)
+{
+	return ($pass1 === $pass2);
+}
 /* function get_data($field)
 {
 	global $mysqli;
