@@ -140,5 +140,26 @@ function logout()
 	header("Location: {$webroot}/calendar/");
 }
 
-
+//------------ajax try
+function check_user_aj()
+{
+	if (isset($_POST['uname']))
+	{
+		$user = $_POST['uname'];
+		$query = "SELECT * FROM user WHERE username='$user'";
+		
+		$result = execute_query($query);
+		
+		if ($result->num_rows)
+		return 1;
+		else return 0;
+		/* 
+			echo "<font color=red>&nbsp;&larr;
+				 Sorry, already taken</font>";
+		else echo "<font color=green>&nbsp;&larr;
+				 Username available</font>";
+				  */
+				 
+	}
+}
 ?>
