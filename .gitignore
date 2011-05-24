@@ -5,3 +5,4 @@ libs
 dbconf.php
 test.php
 templates_c/*.file*
+/site_media/js/build
