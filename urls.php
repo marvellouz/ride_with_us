@@ -13,5 +13,6 @@ $routes = array(
   "register" => "create_user",
   "events" => "events",  
   "logout" => "logout",
+  "event" => "event",
 );
 ?>
