@@ -50,6 +50,7 @@ function event($arr) {
       where about=$event_id;";
     $ride_info_query = "select re.when_datetime, re.additional_info as ride_info,
       r.displacement, r.distance, r.start, r.end, r.additional_info as route_info
+      from ride_event re join route r
       where re.id=$event_id;";
     $owner_info = table_content($owner_query);
     $users_attending = table_content($users_attending_query);
@@ -64,7 +65,7 @@ function event($arr) {
       'assign' => array('owner_info' => $owner_info[0], 
 			'users_attending' => $users_attending, 
 			'event_comments' => $event_comments, 
-			'ride_info' => $ride_info),
+			'ride_info' => $ride_info[0]),
       'display' => 'templates_c/event.tpl');
 
   }
