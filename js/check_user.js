@@ -14,7 +14,7 @@
 	if(request)
 	{
 		document.getElementById('check_user').innerHTML = 'името е свободно';
-		return
+		
 	}
 }
 
