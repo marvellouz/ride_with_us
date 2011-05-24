@@ -26,38 +26,39 @@ function create_user()
  		$fname = $_POST['fname'];
  		$lname = $_POST['lname'];
 		
-  		$usalpass=md5("$salt1$upass$salt2");
-		$usalpass_conf=md5("$salt1$upass_confirm$salt2");
+  		$usalpass="$salt1$upass$salt2";
+		$usalpass_conf="$salt1$upass_confirm$salt2";
 		
-//		if($uname && $email && $upass && $upass_confirm && $fname && $lname)
-		if($uname !="")
+		if($uname && $email && $upass && $upass_confirm && $fname && $lname)
+		//if($uname !="")
 		{
 			if($usalpass == $usalpass_conf)
 			{
+				
 				$user_create_query="INSERT INTO user (username, email, password, fname, lname) 
-									VALUES('$uname', '$email', '$usalpass', '$fname', '$lname')";
+									VALUES('$uname', '$email', md5('$usalpass'), '$fname', '$lname')";
 				execute_query($user_create_query);
-				echo "успешно създаден";
+				$_SESSION['flash']="Успешна регистрация!";
 			}
 			else
 			{
-				echo "Не са въведени еднакви пароли!"; 
-				//	header("Location: ./");
+				$_SESSION['flash'] = "Не са въведени еднакви пароли!"; 
+				header("Location: ./");
 			}
 		}
 		else 
-		echo "Има празно поле!";
+		$_SESSION['flash'] = "Има празно поле!";
 	}
 	return array(
 	'assign' => array(''),
 	'display' => 'templates_c/register.tpl');
 }
 
-function get_data($field)
+/* function get_data($field)
 {
 	global $mysqli;
 	return $mysqli->real_escape_string($_POST[$field]);
-} 
+} */ 
  
 function check_login($uname, $upass)
 {
