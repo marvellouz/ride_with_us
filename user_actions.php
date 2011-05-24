@@ -9,16 +9,10 @@ function create_user()
 {
 	global $salt1;
 	global $salt2;
+	global $webroot;
 	
 	if(isset($_POST['reg_submit']) )
 	{
-/* 		$uname = get_data('uname');
-		$email = get_data('email');
-		$upass = get_data('upass');
-		$upass_confirm = get_data('upass_confirm');
-		$fname = get_data('fname');
-		$lname = get_data('lname');
- */
   		$uname = $_POST['uname'];
  		$email = $_POST['email'];
  		$upass = $_POST['upass'];
@@ -34,11 +28,11 @@ function create_user()
 		{
 			if($usalpass == $usalpass_conf)
 			{
-				
 				$user_create_query="INSERT INTO user (username, email, password, fname, lname) 
 									VALUES('$uname', '$email', md5('$usalpass'), '$fname', '$lname')";
 				execute_query($user_create_query);
 				$_SESSION['flash']="Успешна регистрация!";
+				header("Location: {$webroot}/calendar/");
 			}
 			else
 			{
@@ -75,6 +69,7 @@ function check_login($uname, $upass)
 
 function login()
 {
+	global $webroot;
 	if(isset($_POST['login']))
 	{
 		if(is_null($_POST['uname'] || is_null($_POST['upass'])))
@@ -87,13 +82,13 @@ function login()
 			$_SESSION['fname'] = $user['fname'];
 			$_SESSION['lname'] = $user['lname'];
 			
-			header("Location: calendar/");
-			exit;
+			$_SESSION['flash'] = "Успешно влязохте като {$_SESSION['uname']}!";
+			header("Location: {$webroot}/calendar/");
 		}
-		$_SESSION['flash'] = "Въвели сте грешно потребителско име/парола!";
-		
-		$_SESSION['flash'];
-		//header("Location: ./");
+		else {
+			$_SESSION['flash'] = "Въвели сте грешно потребителско име/парола!";
+			header("Location: ./");
+		}
 	}
 		
 	return array(
@@ -103,12 +98,11 @@ function login()
 
 function logout()
 {
+	global $webroot;
 	session_destroy();
-	//header("Location: ./");	
-	return array(
-	'assign' => array(''),
-	'display' => 'templates_c/logout.tpl'
-	);
+	session_start();
+	$_SESSION['flash'] = "Успешно излязохте!";
+	header("Location: {$webroot}/calendar/");
 }
 
 
