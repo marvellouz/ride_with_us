@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once("./helpers.php");
 
 $salt1 = "#$%GHbA~f";
@@ -19,7 +19,6 @@ function create_user()
 		$fname = get_data('fname');
 		$lname = get_data('lname');
  */
- 
   		$uname = $_POST['uname'];
  		$email = $_POST['email'];
  		$upass = $_POST['upass'];
