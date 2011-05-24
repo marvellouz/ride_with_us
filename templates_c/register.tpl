@@ -1,12 +1,6 @@
 ﻿{extends file="templates_c/index.tpl"}
 {block name=content}
 
-<script src="../../../build/yahoo/yahoo-min.js"></script>
-<script src="../../../build/event/event-min.js"></script>
-<script src="../../../build/connection/connection-min.js"></script>
-
-<script src="../js/check_user.js"></script>
-
 <form method="POST" action=".">
 <label for="uname">Въведете потребителско име:</label>
 <br />
