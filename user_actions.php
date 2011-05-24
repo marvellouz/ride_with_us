@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once("./helpers.php");
 
 $salt1 = "#$%GHbA~f";
@@ -19,7 +19,6 @@ function create_user()
 		$fname = get_data('fname');
 		$lname = get_data('lname');
  */
- 
   		$uname = $_POST['uname'];
  		$email = $_POST['email'];
  		$upass = $_POST['upass'];
@@ -75,8 +74,6 @@ function check_login($uname, $upass)
 
 function login()
 {
-
-	global $webroot;
 	if(isset($_POST['login']))
 	{
 		if(is_null($_POST['uname'] || is_null($_POST['upass'])))
@@ -89,13 +86,13 @@ function login()
 			$_SESSION['fname'] = $user['fname'];
 			$_SESSION['lname'] = $user['lname'];
 			
-			header("Location: {$webroot}/calendar/");
-			//exit;
+			header("Location: calendar/");
+			exit;
 		}
-
 		$_SESSION['flash'] = "Въвели сте грешно потребителско име/парола!";
-		header("Location: {$webroot}/login/");
 		
+		$_SESSION['flash'];
+		//header("Location: ./");
 	}
 		
 	return array(
@@ -105,12 +102,12 @@ function login()
 
 function logout()
 {
-
-	global $webroot;
 	session_destroy();
-	session_start();
-	$_SESSION['flash'] = "Успешно излязохте!";
-	header("Location: {$webroot}/calendar/");	
+	//header("Location: ./");	
+	return array(
+	'assign' => array(''),
+	'display' => 'templates_c/logout.tpl'
+	);
 }
 
 
