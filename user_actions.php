@@ -26,13 +26,30 @@ function create_user()
 		if($uname && $email && $upass && $upass_confirm && $fname && $lname)
 		//if($uname !="")
 		{
-			if($usalpass == $usalpass_conf)
+			if($usalpass === $usalpass_conf)
 			{
-				$user_create_query="INSERT INTO user (username, email, password, fname, lname) 
-									VALUES('$uname', '$email', md5('$usalpass'), '$fname', '$lname')";
-				execute_query($user_create_query);
-				$_SESSION['flash']="Успешна регистрация!";
-				header("Location: {$webroot}/calendar/");
+				if(strl($uname) > 45)
+				{
+					$_SESSION['flash']="Потребителското име е твърде дълго!";
+				}
+				else 
+				if(strl($fname) > 100 || strl($lname) > 100)
+				{
+					$_SESSION['flash']="Името или фамилията Ви са прекалено дълги!";
+				}
+				else 
+				if(strlen($usalpass) > 100 || strl($usalpass)<1) 		//fix min-length after debugging
+				{
+					$_SESSION['flash'] = "Паролата е твърде дълга/къса!";
+				}
+				else
+				{					
+					$user_create_query="INSERT INTO user (username, email, password, fname, lname) 
+										VALUES('$uname', '$email', md5('$usalpass'), '$fname', '$lname')";
+					execute_query($user_create_query);
+					$_SESSION['flash']="Успешна регистрация!";
+				}
+				
 			}
 			else
 			{
@@ -40,8 +57,10 @@ function create_user()
 				header("Location: ./");
 			}
 		}
-		else 
+		else { 
 		$_SESSION['flash'] = "Има празно поле!";
+		header("Location: {$webroot}/register");
+		}
 	}
 	return array(
 	'assign' => array(''),
