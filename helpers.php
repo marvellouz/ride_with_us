@@ -63,6 +63,7 @@ $smarty->assign('webroot', $webroot);
 $smarty->assign('site_media', $site_media);
 $smarty->assign('is_logged_user', $is_logged_user);
 if($is_logged_user){
-  $smarty->assign('user_name', $_SESSION['uname']);
+  $smarty->assign('uname', $_SESSION['uname']);
+  $smarty->assign('fname', $_SESSION['fname']);
 }
 ?>

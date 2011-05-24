@@ -26,7 +26,7 @@ content="text/html;charset=utf-8" />
 <ul>
 <li><a href="{$webroot}/calendar/">Начало</a></li>
 {if $is_logged_user}
-<li id="hello">Здравейте, {$user_name}! </li>
+<li id="hello">Здравейте, {$fname}! </li>
 <li><a href="{$webroot}/logout/">[изход]</a></li>
 {else}
 <li id="login"><a href="{$webroot}/login/">Вход</a></li>
