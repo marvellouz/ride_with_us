@@ -1,4 +1,4 @@
-﻿function checkUser(pass)
+﻿function checkPass(pass)
 {
     
 	if (pass.value == '')
@@ -7,10 +7,10 @@
 		return
 	}
 
-	params   =  user.value;
+	params   =  pass.value;
 	callback = { success:successHandler, failure:failureHandler }
 	request  = YAHOO.util.Connect.asyncRequest('POST',
-		'test.php', callback, params); 
+		'check_passwords', callback, params); 
 }
 
 function successHandler(o)

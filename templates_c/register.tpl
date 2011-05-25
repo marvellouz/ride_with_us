@@ -1,10 +1,11 @@
 ﻿{extends file="templates_c/index.tpl"}
 {block name=content}
 
+
 <form method="POST" action=".">
 <label for="uname">Въведете потребителско име:</label>
 <br />
-<input type="text" id="uname" name="uname" onBlur='checkUser(this)'/><span id='check_user'></span>
+<input type="text" id="uname" name="uname" onBlur='validate()'/><div id="msg"></div>
 <br />
 <label for="upass">Въведете парола:</label>
 <br />
