@@ -17,6 +17,6 @@ $routes = array(
   "event" => "event",
   "myevents" => "user_events",
   "search" => "search_string",
-  
+  "attend" => "attend_event",
 );
 ?>

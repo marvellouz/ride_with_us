@@ -40,7 +40,9 @@
       <li>{$attender['username']} ({$attender['fname']} {$attender['lname']})</li>
     {/foreach}
   </ul>
-
+  <form method="post" action="{$webroot}/attend/{$ride_info['event_id']}">
+      <input type="submit" id="attend" name="attend" value="Ще присъствам" />
+  </form>
 </div>
 
 {/block}

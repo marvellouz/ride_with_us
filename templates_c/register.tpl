@@ -2,7 +2,7 @@
 {block name=content}
 
 
-<form method="POST" action=".">
+<form method="POST" action="register">
 <label for="uname">Въведете потребителско име:</label>
 <br />
 <input type="text" id="uname" name="uname" onBlur='validate()'/>

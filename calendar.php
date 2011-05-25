@@ -1,12 +1,19 @@
 <?php
 require_once("./helpers.php");
 
-function make_day($day, $month, $year) {
+function make_day($day, $month, $year, $month_events) {
   $date = "$year-$month-$day";
-  $events_query = "select * from ride_event where date(when_datetime) = '$date'";
-  $day_events = table_content($events_query);
+  //select * for the month
   $today = getdate();
-  $has_event = count($day_events);
+  $has_event = false;
+
+  if(count($month_events)) {
+    for($i=0; $i<count($month_events); $i++){
+      if ($month_events[$i]['when_date'] == $date) {
+	$has_event = true;
+      }
+    }
+  }
   $is_today = ($day == $today['mday'] && $month == $today['mon'] && $year ==$today['year'] );
   if($is_today && $has_event) {
     $day_html = "<td class='event' id='today'><a href='{$_SERVER["SCRIPT_NAME"]}/events/$day/$month/$year'><strong>$day</strong></a></td>";
@@ -17,7 +24,7 @@ function make_day($day, $month, $year) {
     return $day_html;
   }
   if($is_today) {
-    $day_html = "<td id='today'><strong>$day<strong></td>";
+    $day_html = "<td id='today' class='event'><strong>$day<strong></td>";
     return $day_html;
   }
 
@@ -26,7 +33,7 @@ function make_day($day, $month, $year) {
 }
 
 
-function first_week($month, $year) {
+function first_week($month, $year, $month_events) {
   $first_day = getdate(mktime(0, 0, 0, $month, 1, $year));
   $first_wday = ($first_day['wday']==0)?(7):($first_day['wday']);
   $cal = "<tr>";
@@ -37,14 +44,14 @@ function first_week($month, $year) {
   $actday = 0;
   for($i = $first_wday; $i <= 7; $i++) {
     $actday++;
-    $cal = $cal.make_day($actday, $month, $year);
+    $cal = $cal.make_day($actday, $month, $year, $month_events);
   }
   $cal = $cal.'</tr>';
   return array($cal, $actday);
 }
 
 
-function last_week($month, $year, $actday) {
+function last_week($month, $year, $actday, $month_events) {
   $cal = "";
   $last_day = getdate(mktime(0, 0, 0, $month+1, 0, $year));
   if ($actday < $last_day['mday']) {
@@ -53,7 +60,7 @@ function last_week($month, $year, $actday) {
     for ($i=0; $i<7;$i++) {
       $actday++;
       if ($actday <= $last_day['mday']) {
-	$cal = $cal.make_day($actday, $month, $year);
+	$cal = $cal.make_day($actday, $month, $year, $month_events);
       }
       else {
 	$cal = $cal.'<td>&nbsp;</td>';
@@ -105,7 +112,9 @@ function create_month($arr) {
     </tr>
   ";
   $last_day = getdate(mktime(0, 0, 0, $month+1, 0, $year));
-  $first_week = first_week($month, $year);
+  $month_events_query = "select date(when_datetime) as when_date from ride_event where month(when_datetime) = $month";
+  $month_events = table_content($month_events_query);
+  $first_week = first_week($month, $year, $month_events);
   $cal = $cal.$first_week[0];
   $actday = $first_week[1];
   $fullWeeks = floor(($last_day['mday']-$actday)/7);
@@ -114,11 +123,11 @@ function create_month($arr) {
     $cal = $cal.'<tr>';
     for ($j=0;$j<7;$j++) {
       $actday++;
-      $cal = $cal.make_day($actday, $month, $year);
+      $cal = $cal.make_day($actday, $month, $year, $month_events);
     }
     $cal = $cal.'</tr>';
   }
-  $cal .= last_week($month, $year, $actday);
+  $cal .= last_week($month, $year, $actday, $month_events);
 
   $cal .= "</table>";
   $cal .= navigation($month, $year);

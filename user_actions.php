@@ -35,6 +35,8 @@ function create_user()
 												VALUES('$uname', '$email', md5('$usalpass'), '$fname', '$lname')";
 							execute_query($user_create_query);
 							$_SESSION['flash']="Успешна регистрация!";
+							header("Location: {$webroot}/calendar/");
+							return;
 					}
 					else
 					{
@@ -69,8 +71,7 @@ function is_free($uname)
 {
 	$query = "SELECT * FROM user WHERE username='$uname'";
 	$result = table_content($query);
-	if(count($result) == 0) return true;
-	else return false;
+	return (!count($result));
 }
 
 function is_valid_email($email) {
