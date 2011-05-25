@@ -7,11 +7,9 @@
 content="text/html;charset=utf-8" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <link rel="stylesheet" href="{$site_media}/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="{$site_media}/js/build/yahoo/yahoo-min.js"></script>
-<script type="text/javascript" src="{$site_media}/js/build/event/event-min.js"></script>
-<script type="text/javascript" src="{$site_media}/js/build/connection/connection-min.js"></script>
-<script type="text/javascript" src="{$site_media}/js/check_user.js">
+<script type="text/javascript" src="{$site_media}/js/check_user2.js"></script>
 </script>
+
 <!--[if lte IE 6]>
 <p bgcolor = "#7A0900">
 <em>Сайтът изглежда по този начин, защото използвате internet explorer 6 или по-стара версия. Моля използвайте <a href = "http://www.mozilla.com/">browser</a>.
@@ -20,6 +18,7 @@ content="text/html;charset=utf-8" />
 
 </head>
 <body>
+
 <div id="container">
 <div id="header">
 <a href="{$webroot}/calendar/">

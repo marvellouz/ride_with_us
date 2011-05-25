@@ -6,3 +6,4 @@ dbconf.php
 test.php
 templates_c/*.file*
 /site_media/js/build
+/site_media/js/1check_user.js

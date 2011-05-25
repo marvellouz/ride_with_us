@@ -24,11 +24,9 @@ function create_user()
 		$usalpass_conf="$salt1$upass_confirm$salt2";
 		
 		if($uname && $email && $upass && $upass_confirm && $fname && $lname)
-		//if($uname !="")
 		{
 			if(is_free($uname))
 			{
-//				echo $uname;
 				if(is_valid_email($email))
 				{
 					if(check_passwords($usalpass, $usalpass_conf))
@@ -152,8 +150,8 @@ function check_user_aj()
 		$result = execute_query($query);
 		
 		if ($result->num_rows)
-		return 1;
-		else return 0;
+		return "1";
+		else return "0";
 		/* 
 			echo "<font color=red>&nbsp;&larr;
 				 Sorry, already taken</font>";
