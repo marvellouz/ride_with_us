@@ -2,6 +2,7 @@
 
 require_once("./calendar.php");
 require_once("./user_actions.php");
+require_once("./search.php");
 
 require_once("./calendar_event.php");
 
@@ -15,5 +16,7 @@ $routes = array(
   "logout" => "logout",
   "event" => "event",
   "myevents" => "user_events",
+  "search" => "search_string",
+  
 );
 ?>

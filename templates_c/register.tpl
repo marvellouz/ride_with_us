@@ -5,7 +5,7 @@
 <form method="POST" action=".">
 <label for="uname">Въведете потребителско име:</label>
 <br />
-<input type="text" id="uname" name="uname" onBlur='validate()'/><div id="msg"></div>
+<input type="text" id="uname" name="uname" onBlur='validate()'/>
 <br />
 <label for="upass">Въведете парола:</label>
 <br />
@@ -29,5 +29,5 @@
 <br />
 <input type="submit" id="reg_submit" name="reg_submit" value="Register" />
 </form>
-
+<div id="msg"></div>
 {/block}
