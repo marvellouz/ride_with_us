@@ -14,5 +14,6 @@ $routes = array(
   "events" => "events",  
   "logout" => "logout",
   "event" => "event",
+  "myevents" => "user_events",
 );
 ?>

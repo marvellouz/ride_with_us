@@ -113,6 +113,7 @@ function login()
 		$user = check_login($_POST['uname'], $_POST['upass']);
 		if($user)
 		{
+			$_SESSION['uid'] = $user['id'];
 			$_SESSION['uname'] = $user['username'];
 			$_SESSION['fname'] = $user['fname'];
 			$_SESSION['lname'] = $user['lname'];

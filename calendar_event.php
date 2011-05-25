@@ -12,17 +12,14 @@ function events($arr) {
   $month = $arr[1];
   $year = $arr[2];
   $date = "$year-$month-$day";
-  $day_events_query = "select when_datetime, username as owner_username,
-    fname as owner_fname,
-    email as owner_email,
-    start, end,
-    re.id as event_id,
-    re.additional_info as ride_info
-    from ride_event re join user u on re.owner=u.id
+  $day_events_query = "select re.when_datetime,
+    r.start, r.end,
+    re.id as event_id
+    from ride_event re join user_has_ride_event ue on re.id=ue.ride_event_id
     join route r on re.route=r.id 
-    where date(when_datetime) = '$date'";
+    where date(re.when_datetime) = '$date'";
   $day_events = table_content($day_events_query);
-  //print_r($day_events);
+  print_r($day_events);
 
   return array(
     'assign' => array('day_events' => $day_events),
@@ -50,6 +47,7 @@ function event($arr) {
       where about=$event_id;";
     $ride_info_query = "select re.when_datetime, re.additional_info as ride_info,
       r.displacement, r.distance, r.start, r.end, r.additional_info as route_info
+      from ride_event re join route r
       where re.id=$event_id;";
     $owner_info = table_content($owner_query);
     $users_attending = table_content($users_attending_query);
@@ -64,10 +62,37 @@ function event($arr) {
       'assign' => array('owner_info' => $owner_info[0], 
 			'users_attending' => $users_attending, 
 			'event_comments' => $event_comments, 
-			'ride_info' => $ride_info),
+			'ride_info' => $ride_info[0]),
       'display' => 'templates_c/event.tpl');
 
   }
+}
+
+function user_events() {
+  global $is_logged_user;
+  global $webroot;
+
+  if($is_logged_user) {
+    $uid = $_SESSION['uid'];
+    $user_events_query = "select re.when_datetime,
+      r.start, r.end,
+      re.id as event_id
+      from ride_event re join user_has_ride_event ue on re.id=ue.ride_event_id
+      join route r on re.route=r.id
+      where ue.user_id = '$uid'";
+    $user_events = table_content($user_events_query);
+    //print_r($user_events);
+
+  return array(
+    'assign' => array('user_events' => $user_events),
+    'display' => 'templates_c/user_events.tpl');
+
+  }
+  else {
+    $_SESSION['flash'] = "За да видите тази страница трябва да сте влезли";
+    header("Location: {$webroot}/login/");
+  }
+
 }
 
 
