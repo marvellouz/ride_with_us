@@ -95,5 +95,34 @@ function user_events() {
 
 }
 
+function attend_event($arr) {
+  global $is_logged_user;
+  global $webroot;
+  if(count($arr)!=1) {
+    $_SESSION['flash'] = "Невалидна заявка за събитие!";
+    header("Location: {$webroot}/calendar/");
+  }
+  else {
+    $eid = $arr[0];
+  }
+
+  if($is_logged_user) {
+    $uid = $_SESSION['uid'];
+    $is_attending_query = "select user_id, ride_event_id from user_has_ride_event
+			  where user_id=$uid and ride_event_id=$eid";
+    $is_attending = count(table_content($is_attending_query));
+    if($is_attending) {
+      $_SESSION['flash'] = "Вече сте записани за това събитие";
+      header("Location: {$webroot}/event/$eid");
+    }
+    else {
+      $attend_query = "insert into user_has_ride_event(user_id, ride_event_id) values('$uid', '$eid');";
+      $attend = execute_query($attend_query);
+      $_SESSION['flash'] = "Успешно се записахте за събитието!";
+      header("Location: {$webroot}/event/$eid");
+    }
+  }
+}
+
 
 ?>
