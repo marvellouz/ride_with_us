@@ -9,11 +9,11 @@
 <br />
 <label for="upass">Въведете парола:</label>
 <br />
-<input type="password" id="upass" name="upass" />
+<input type="password" id="upass" name="upass" onBlur="validate_pass()" />
 <br />
 <label for="upass_confirm">Повторете паролата</label>
 <br />
-<input type="password" id="upass_confirm" name="upass_confirm" onBlur="validate_pass()"/><span id="passmsg"></span>
+<input type="password" id="upass_confirm" name="upass_confirm" onBlur="validate_pass()" /> <span id="passmsg"></span>
 <br />
 <label for="fname">Име:</label>
 <br />

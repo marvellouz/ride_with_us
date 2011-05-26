@@ -149,7 +149,7 @@ function validate_username()
 	if(strlen($user) <= 0)
 	{
 	  echo json_encode(array('code'  =>  -1,
-	  'result'  =>  'Invalid username, please try again.'
+	  'result'  =>  'Моля въведете потребителско име.'
 	  ));
 	  die;
 	}
@@ -162,14 +162,14 @@ function validate_username()
 	if(!$available)
 	{
 	  echo json_encode(array('code'  =>  1,
-	  'result'  =>  "Success,username $user is still available"
+	  'result'  =>  "Потребителското име $user е свободно."
 	  ));
 	  die;
 	}
 	else
 	{
 	  echo  json_encode(array('code'  =>  0,
-	  'result'  =>  "Sorry but username $user is already taken."
+	  'result'  =>  "Потребителското име $user не е свободно!"
 	  ));
 	  die;
 	}
@@ -188,7 +188,7 @@ function validate_password()
 	if(strlen($pass) <= 0 || strlen($confpass) <=0)
 	{
 	  echo json_encode(array('code'  =>  -1,
-	  'result'  =>  'Invalid passoword, please try again.'
+	  'result'  =>  'Моля въведете парола.'
 	  ));
 	  die;
 	}
@@ -198,17 +198,17 @@ function validate_password()
 	if($pass===$confpass)
 	$available=1;
 	 
-	if(!$available)
+	if($available)
 	{
 	  echo json_encode(array('code'  =>  1,
-	  'result'  =>  "Success,username $user is still available"
+	  'result'  =>  "Паролите съвпадат!"
 	  ));
 	  die;
 	}
 	else
 	{
 	  echo  json_encode(array('code'  =>  0,
-	  'result'  =>  "Sorry but username $user is already taken."
+	  'result'  =>  "Паролите не съвпадат!"
 	  ));
 	  die;
 	}
