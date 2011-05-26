@@ -72,7 +72,7 @@ function search_string()
 		//var_dump($select);
 		//var_dump($where);
 		//$query_search="SELECT displacement, distance, start, end, additional_info FROM route WHERE $where";
-	 	$query_search="SELECT us.username, re.when_datetime, ru.displacement, ru.distance, ru.start, ru.end, re.additional_info
+	 	$query_search="SELECT us.username, re.id, re.when_datetime, ru.displacement, ru.distance, ru.start, ru.end, re.additional_info
 						FROM route ru join ride_event re on ru.id=re.route join user us on re.owner=us.id
 						WHERE $where"; 
 		//$query_search="SELECT $select FROM route WHERE $where";
