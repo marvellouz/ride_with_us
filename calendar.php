@@ -3,7 +3,6 @@ require_once("./helpers.php");
 
 function make_day($day, $month, $year, $month_events) {
   $date = "$year-$month-$day";
-  //select * for the month
   $today = getdate();
   $has_event = false;
 
@@ -32,6 +31,11 @@ function make_day($day, $month, $year, $month_events) {
   return $day_html;
 }
 
+function make_user_day($day, $month, $month_events) {
+  global $user_events;
+  $today = getdate();
+  $has_event = flase;
+}
 
 function first_week($month, $year, $month_events) {
   $first_day = getdate(mktime(0, 0, 0, $month, 1, $year));
@@ -72,7 +76,7 @@ function last_week($month, $year, $actday, $month_events) {
   return $cal;
 }
 
-function navigation($month, $year) {
+function navigation($month, $year, $calendar) {
   $prev_month = $month - 1;
   $prev_year = $year;
   if($prev_month < 1) {
@@ -85,14 +89,15 @@ function navigation($month, $year) {
     $next_month -= 12;
     $next_year++;
   }
-  $nav = "<div id='nav'><a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$prev_month/$prev_year/'>&lt;&lt;</a>";
-  $nav = $nav."<a href='{$_SERVER["SCRIPT_NAME"]}/calendar/$next_month/$next_year/'>&gt;&gt;</a></nav>";
+  $nav = "<div id='nav'><a href='{$_SERVER["SCRIPT_NAME"]}/$calendar/$prev_month/$prev_year/'>&lt;&lt;</a>";
+  $nav = $nav."<a href='{$_SERVER["SCRIPT_NAME"]}/$calendar/$next_month/$next_year/'>&gt;&gt;</a></nav>";
   return $nav;
 
 }
 
 // $arr = array($month, $year)
 function create_month($arr) {
+  global $is_logged_user;
   $today = getdate();
   if(count($arr)!=2) {
     $month = $today['mon'];
@@ -111,14 +116,74 @@ function create_month($arr) {
       <td>П</td><td>В</td><td>С</td><td>Ч</td><td>П</td><td>С</td><td>Н</td>
     </tr>
   ";
+  $user_cal = $cal;
   $last_day = getdate(mktime(0, 0, 0, $month+1, 0, $year));
   $month_events_query = "select date(when_datetime) as when_date from ride_event where month(when_datetime) = $month";
   $month_events = table_content($month_events_query);
+
   $first_week = first_week($month, $year, $month_events);
   $cal = $cal.$first_week[0];
+  $cal .= rest_weeks($first_week, $last_day, $month, $year, $month_events);
+
+  $cal .= navigation($month, $year, "calendar");
+  $cal .= "</div>";
+
+
+  //TODO:  if user is logged in -> $user_cal
+  if($is_logged_user) {
+    $uid = $_SESSION['uid'];
+    $user_month_events_query = "select date(when_datetime) as when_date from ride_event 
+				join user_has_ride_event 
+				where month(when_datetime) = $month and 
+				user_id = $uid";
+    $user_month_events = table_content("$user_month_events_query");
+    $user_first_week = first_week($month, $year, $user_month_events);
+    $user_cal .= $user_first_week[0];
+    $user_actday = $user_first_week[1];
+    $user_cal .= rest_weeks($user_first_week, $last_day, $month, $year, $user_month_events);
+
+    $user_cal .= navigation($month, $year, "mycalendar");
+    $user_cal .= "</div>";
+
+
+
+  }
+  else {
+    $user_cal = "";
+  }
+  return array("user_cal" => $user_cal, "cal" => $cal, 'today' => $today);
+
+
+}
+
+
+function calendar($arr) {
+  $calendar = create_month($arr);
+  $cal = $calendar['cal'];
+  $today = $calendar['today'];
+  return array(
+    'assign' => array('cal' => $cal, 'today' => $today),
+    'display' => 'templates_c/index.tpl');
+
+}
+
+
+function user_calendar($arr) {
+  $calendar = create_month($arr);
+  $user_cal = $calendar['user_cal'];
+  $today = $calendar['today'];
+  return array(
+    'assign' => array('user_cal' => $user_cal, 'today' => $today),
+    'display' => 'templates_c/user_calendar.tpl');
+
+}
+
+
+function rest_weeks($first_week, $last_day, $month, $year, $month_events) {
   $actday = $first_week[1];
   $fullWeeks = floor(($last_day['mday']-$actday)/7);
 
+  $cal = "";
   for ($i=0;$i<$fullWeeks;$i++) {
     $cal = $cal.'<tr>';
     for ($j=0;$j<7;$j++) {
@@ -130,14 +195,9 @@ function create_month($arr) {
   $cal .= last_week($month, $year, $actday, $month_events);
 
   $cal .= "</table>";
-  $cal .= navigation($month, $year);
-  $cal .= "</div>";
+return $cal;
 
-  //TODO:  if user is logged in -> $user_cal
-
-  return array(
-    'assign' => array('cal' => $cal, 'today' => $today),
-    'display' => 'templates_c/index.tpl');
 }
+
 
 ?>

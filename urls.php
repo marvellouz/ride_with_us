@@ -9,7 +9,7 @@ require_once("./calendar_event.php");
 //defining what url patterns get mapped into what funcitons.
 //if no route is provided 'default' route is used
 $routes = array(
-  "calendar" => "create_month",
+  "calendar" => "calendar",
   "login" => "login",
   "register" => "create_user",
   "events" => "events",  
@@ -20,5 +20,6 @@ $routes = array(
   "attend" => "attend_event",
   "validate_username" => "validate_username",
   "validate_password" => "validate_password",
+  "mycalendar" => "user_calendar",
 );
 ?>

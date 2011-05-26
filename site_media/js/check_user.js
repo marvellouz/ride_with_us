@@ -23,7 +23,7 @@
     return a;
   }
  
-  function validate()
+  function validate_user()
   {
     site_root = '';
     var x = document.getElementById('uname');

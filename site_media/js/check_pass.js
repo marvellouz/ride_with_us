@@ -23,14 +23,14 @@
     return a;
   }
  
-  function validate()
+  function validate_pass()
   {
     site_root = '';
-    var x = document.getElementById('upass');
-	var y = document.getElementById('upass_confirm');
-    var msg = document.getElementById('msg_pass');
-    pass = x.value;
-	confpass = y.value;
+    var xp = document.getElementById('upass');
+	var yp = document.getElementById('upass_confirm');
+    var msg = document.getElementById('passmsg');
+    pass = xp.value;
+	confpass = yp.value;
  
     code = '';
     message = '';
@@ -45,12 +45,12 @@
  
         if(code <=0)
         {
-          x.style.border = "1px solid red";
+          xp.style.border = "1px solid red";
           msg.style.color = "red";
         }
         else
         {
-          x.style.border = "1px solid #000";
+          xp.style.border = "1px solid #000";
           msg.style.color = "green";
         }
         msg.innerHTML = message;

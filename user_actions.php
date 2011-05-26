@@ -181,22 +181,22 @@ function validate_password()
 	$pass = $_REQUEST['password'];
 	$confpass = $_REQUEST['confirm_pass'];
  	//$user = $_POST['uname'];
-	$user='';
+	/* $user='';
 	if($pass===$confpass)
-	$user=1;
-	 
-	if(strlen($user) <= 0)
+	$user='1';
+	 */ 
+	if(strlen($pass) <= 0 || strlen($confpass) <=0)
 	{
 	  echo json_encode(array('code'  =>  -1,
-	  'result'  =>  'Invalid username, please try again.'
+	  'result'  =>  'Invalid passoword, please try again.'
 	  ));
 	  die;
 	}
 
-	$query = "Select * from USER where username='$user'";
-	$result=execute_query($query);
-	$available=($result->num_rows);
-
+	
+	$available=0;
+	if($pass===$confpass)
+	$available=1;
 	 
 	if(!$available)
 	{

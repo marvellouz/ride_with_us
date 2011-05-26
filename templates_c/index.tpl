@@ -31,6 +31,7 @@ content="text/html;charset=utf-8" />
 <li><a href="{$webroot}/search/">Търсене</a></li>
 {if $is_logged_user}
 <li><a href="{$webroot}/myevents/">Моите събития</a></li>
+<li><a href="{$webroot}/mycalendar/">Моят календар</a></li>
 <li id="hello">Здравейте, {$fname}! </li>
 <li><a href="{$webroot}/logout/">[изход]</a></li>
 {else}
@@ -45,6 +46,9 @@ content="text/html;charset=utf-8" />
 {$flash|default:""}
 {block name=content}
 {$cal}
+<br/>
+<br/>
+<br/>
 {/block}
 </content>
 <div id=footer></div>
