@@ -43,8 +43,8 @@
 	<tr>
 		
 		{foreach from=$ride[$i]  item=rid}
-		<td><a href="{$webroot}/$month/$day">{$rid}</a>
-		</td>		
+		  <td><a href="{$webroot}/event/{$ride[$i]['id']}/">{$rid}</a>
+		  </td>		
 		{/foreach}
 		
 	</tr>
