@@ -2,7 +2,6 @@
 
 require_once("./helpers.php");
 
-
 //$arr = array($day, $month, $year);
 function events($arr) {
   if(count($arr)!=3) {
