@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once("./helpers.php");
 
 // key_words, takes only the key words that are entered, removing the nullable members of the $_POST array
@@ -22,6 +22,7 @@ function search_string()
 	if(isset($_POST['search_submit']))
 	{
 		$search_words=key_words($_POST);
+
 		
 		$select='';
 		$where='';
@@ -86,10 +87,12 @@ function search_string()
 
 	//endif 
 	}
+
+
 	else 
 	{	//$ride = '';
-		$_SESSION['flash'] = "Не сте въвели дума/и за търсене!";
-		header("Location: {$webroot}/search");
+		//$_SESSION['flash'] = "Не сте въвели дума/и за търсене!";
+		//header("Location: {$webroot}/search");
 		return array(
 		'assign' => array(''),
 		'display' => 'templates_c/search.tpl');

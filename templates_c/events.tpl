@@ -4,9 +4,8 @@
 <ul>
 {foreach from=$day_events item=event}
   <li><a href="{$webroot}/event/{$event['event_id']}">Каране на {$event['when_datetime']} от {$event['start']} до {$event['end']}</a></li>
-  <form method="post" action="{$webroot}/attend/{$event['event_id']}">
-    <input type="submit" id="attend" name="attend" value="Ще присъствам" />
-  </form>
+  {assign var="event_id" value=$event['event_id']}
+  {include file="templates_c/attend.tpl"}
 {/foreach}
 </ul>
 </div>

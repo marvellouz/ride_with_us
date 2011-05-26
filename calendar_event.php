@@ -15,14 +15,13 @@ function events($arr) {
   $day_events_query = "select re.when_datetime,
     r.start, r.end,
     re.id as event_id
-    from ride_event re join user_has_ride_event ue on re.id=ue.ride_event_id
-    join route r on re.route=r.id 
+    from ride_event re join route r on re.route=r.id 
     where date(re.when_datetime) = '$date'";
   $day_events = table_content($day_events_query);
-  print_r($day_events);
+  //print_r($day_events);
 
   return array(
-    'assign' => array('day_events' => $day_events),
+    'assign' => array('day_events' => $day_events, 'uid' => $_SESSION['uid']),
     'display' => 'templates_c/events.tpl');
 }
 
@@ -68,6 +67,7 @@ function event($arr) {
       'assign' => array('owner_info' => $owner_info[0], 
 			'users_attending' => $users_attending, 
 			'event_comments' => $event_comments, 
+			'event_id' => $event_id, 
 			'ride_info' => $ride_info[0]),
       'display' => 'templates_c/event.tpl');
 
@@ -101,6 +101,9 @@ function user_events() {
 
 }
 
+
+//$arr = array($eid, $attend_unattend)
+//attend is 1, unattend is 0
 function attend_event($arr) {
   global $is_logged_user;
   global $webroot;
@@ -112,20 +115,34 @@ function attend_event($arr) {
     $eid = $arr[0];
   }
 
-  if($is_logged_user && isset($_POST['attend'])) {
+  if($is_logged_user) {
     $uid = $_SESSION['uid'];
-    $is_attending_query = "select user_id, ride_event_id from user_has_ride_event
-			  where user_id=$uid and ride_event_id=$eid";
-    $is_attending = count(table_content($is_attending_query));
-    if($is_attending) {
-      $_SESSION['flash'] = "Вече сте записани за това събитие";
+    if(isset($_POST['attend'])) {
+      $is_attending_query = "select user_id, ride_event_id from user_has_ride_event
+			    where user_id=$uid and ride_event_id=$eid";
+      $is_attending = count(table_content($is_attending_query));
+      if($is_attending) {
+	$_SESSION['flash'] = "Вече сте записани за това събитие!";
+	header("Location: {$webroot}/event/$eid");
+      }
+      else {
+	$attend_query = "insert into user_has_ride_event(user_id, ride_event_id) values('$uid', '$eid');";
+	$attend = execute_query($attend_query);
+	$_SESSION['flash'] = "Успешно се записахте за събитието!";
+	header("Location: {$webroot}/event/$eid");
+	break;
+      }
+    }
+    if(isset($_POST['unattend'])) {
+      $unattend_query = "delete from user_has_ride_event where user_id=$uid and ride_event_id=$eid";
+      execute_query($unattend_query);
+      $_SESSION['flash'] = "Успешно се отписахте от събитието! ";
       header("Location: {$webroot}/event/$eid");
     }
     else {
-      $attend_query = "insert into user_has_ride_event(user_id, ride_event_id) values('$uid', '$eid');";
-      $attend = execute_query($attend_query);
-      $_SESSION['flash'] = "Успешно се записахте за събитието!";
+      $_SESSION['flash'] = "Невалидна заявка за събитие!";
       header("Location: {$webroot}/event/$eid");
+
     }
   }
 }
