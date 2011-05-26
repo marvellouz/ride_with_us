@@ -144,12 +144,11 @@ function logout()
 function validate_username()
 {
 	$user = $_REQUEST['username'];
-	//$user = $_POST['uname'];
 	 
 	if(strlen($user) <= 0)
 	{
 	  echo json_encode(array('code'  =>  -1,
-	  'result'  =>  'Invalid username, please try again.'
+	  'result'  =>  'Моля въведете потребителско име.'
 	  ));
 	  die;
 	}
@@ -162,14 +161,14 @@ function validate_username()
 	if(!$available)
 	{
 	  echo json_encode(array('code'  =>  1,
-	  'result'  =>  "Success,username $user is still available"
+	  'result'  =>  "Потребителското име $user е свободно."
 	  ));
 	  die;
 	}
 	else
 	{
 	  echo  json_encode(array('code'  =>  0,
-	  'result'  =>  "Sorry but username $user is already taken."
+	  'result'  =>  "Потребителското име $user не е свободно!"
 	  ));
 	  die;
 	}
@@ -180,15 +179,11 @@ function validate_password()
 {
 	$pass = $_REQUEST['password'];
 	$confpass = $_REQUEST['confirm_pass'];
- 	//$user = $_POST['uname'];
-	/* $user='';
-	if($pass===$confpass)
-	$user='1';
-	 */ 
+
 	if(strlen($pass) <= 0 || strlen($confpass) <=0)
 	{
 	  echo json_encode(array('code'  =>  -1,
-	  'result'  =>  'Invalid passoword, please try again.'
+	  'result'  =>  'Моля въведете парола.'
 	  ));
 	  die;
 	}
@@ -198,20 +193,61 @@ function validate_password()
 	if($pass===$confpass)
 	$available=1;
 	 
-	if(!$available)
+	if($available)
 	{
 	  echo json_encode(array('code'  =>  1,
-	  'result'  =>  "Success,username $user is still available"
+	  'result'  =>  "Паролите съвпадат!"
 	  ));
 	  die;
 	}
 	else
 	{
 	  echo  json_encode(array('code'  =>  0,
-	  'result'  =>  "Sorry but username $user is already taken."
+	  'result'  =>  "Паролите не съвпадат!"
 	  ));
 	  die;
 	}
 	die;
+}
+
+
+
+function validate_form()
+{
+	$uname = $_POST['uname'];
+	$upass = $_POST['upass'];
+	$upass_confirm = $_POST['upass_confirm'];
+	$fname = $_POST['fname'];
+	$lname = $_POST['lname'];
+	$email = $_POST['email'];
+	
+	if(!$uname || !$upass || $upass_confirm || $fname || $lname || $email)
+	{
+	  echo json_encode(array('code'  =>  -1,
+	  'result'  =>  'Моля попълнете всички полета!'
+	  ));
+	  die;
+	}
+
+/* 	
+	$available=0;
+	if($pass===$confpass)
+	$available=1;
+	 
+	if($available)
+	{
+	  echo json_encode(array('code'  =>  1,
+	  'result'  =>  "Паролите съвпадат!"
+	  ));
+	  die;
+	}
+	else
+	{
+	  echo  json_encode(array('code'  =>  0,
+	  'result'  =>  "Паролите не съвпадат!"
+	  ));
+	  die;
+	}
+	die; */
 }
 ?>

@@ -1,18 +1,18 @@
 ﻿  function pullAjax(){
-    var a;
+    var request;
     try{
-      a=new XMLHttpRequest()
+      request=new XMLHttpRequest()
     }
     catch(b)
     {
       try
       {
-        a=new ActiveXObject("Msxml2.XMLHTTP")
+        request=new ActiveXObject("Msxml2.XMLHTTP")
       }catch(b)
       {
         try
         {
-          a=new ActiveXObject("Microsoft.XMLHTTP")
+          request=new ActiveXObject("Microsoft.XMLHTTP")
         }
         catch(b)
         {
@@ -20,7 +20,7 @@
         }
       }
     }
-    return a;
+    return request;
   }
  
   function validate_pass()
