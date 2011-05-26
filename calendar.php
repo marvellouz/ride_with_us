@@ -132,8 +132,8 @@ function create_month($arr) {
   //TODO:  if user is logged in -> $user_cal
   if($is_logged_user) {
     $uid = $_SESSION['uid'];
-    $user_month_events_query = "select date(when_datetime) as when_date from ride_event 
-				join user_has_ride_event 
+    $user_month_events_query = "select date(when_datetime) as when_date from ride_event re
+				join user_has_ride_event ue on  re.id=ue.ride_event_id
 				where month(when_datetime) = $month and 
 				user_id = $uid";
     $user_month_events = table_content("$user_month_events_query");
