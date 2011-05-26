@@ -2,7 +2,7 @@
 include_once ('helpers.php');
 
 $user = $_REQUEST['username'];
- 
+//echo "bla"; 
 if(strlen($user) <= 0)
 {
   echo json_encode(array('code'  =>  -1,

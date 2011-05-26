@@ -54,6 +54,6 @@
         msg.innerHTML = message;
       }
     }
-    obj.open("GET","validate?username="+user,true);
+    obj.open("GET","../validate?username="+user,true);
     obj.send(null);
   }

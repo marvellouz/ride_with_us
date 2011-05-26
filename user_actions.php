@@ -143,7 +143,6 @@ function logout()
 //------------ajax try
 function validate()
 {
-	//echo "wika q";
 	$user = $_REQUEST['username'];
 	 
 	if(strlen($user) <= 0)
@@ -162,14 +161,14 @@ function validate()
 	if(!$available)
 	{
 	  echo json_encode(array('code'  =>  1,
-	  'result'  =>  "Потребителското име $user е свободно."
+	  'result'  =>  "Success,username $user is still available"
 	  ));
 	  die;
 	}
 	else
 	{
 	  echo  json_encode(array('code'  =>  0,
-	  'result'  =>  "Потребителскот име $user е заето! Изберете друго."
+	  'result'  =>  "Sorry but username $user is already taken."
 	  ));
 	  die;
 	}
