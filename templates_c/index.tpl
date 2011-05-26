@@ -27,6 +27,7 @@ content="text/html;charset=utf-8" />
 <div id="menu">
 <ul>
 <li><a href="{$webroot}/calendar/">Начало</a></li>
+<li><a href="{$webroot}/search/">Търсене</a></li>
 {if $is_logged_user}
 <li><a href="{$webroot}/myevents/">Моите събития</a></li>
 <li id="hello">Здравейте, {$fname}! </li>
