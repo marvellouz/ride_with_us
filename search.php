@@ -21,6 +21,14 @@ function search_string()
 	//echo sanitize_string($string);
 	if(isset($_POST['search_submit']))
 	{
+		if(!$_POST['start'] && !$_POST['end'] && !$_POST['distance'] && !$_POST['displacement'] && !$_POST['additional_info'])
+		{
+			$ride = '';
+			$_SESSION['flash'] = "Не сте въвели дума/и за търсене!";
+			header("Location: {$webroot}/search");
+		}
+		
+		
 		$search_words=key_words($_POST);
 
 		
@@ -90,9 +98,7 @@ function search_string()
 
 
 	else 
-	{	//$ride = '';
-		//$_SESSION['flash'] = "Не сте въвели дума/и за търсене!";
-		//header("Location: {$webroot}/search");
+	{
 		return array(
 		'assign' => array(''),
 		'display' => 'templates_c/search.tpl');

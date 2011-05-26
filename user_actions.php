@@ -144,6 +144,7 @@ function logout()
 function validate()
 {
 	$user = $_REQUEST['username'];
+	//$user = $_POST['uname'];
 	 
 	if(strlen($user) <= 0)
 	{
