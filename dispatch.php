@@ -44,10 +44,12 @@ function dispatch() {
   $action_function = $routes[$action];
   
   $results = $action_function($params);
-  foreach($results['assign'] as $res_name => $res_value) {
-    $smarty->assign($res_name, $res_value);
+  if($results) {
+    foreach($results['assign'] as $res_name => $res_value) {
+      $smarty->assign($res_name, $res_value);
+    }
+    $smarty->display($results['display']);
   }
-  $smarty->display($results['display']);
 
   $action_function($params);
 

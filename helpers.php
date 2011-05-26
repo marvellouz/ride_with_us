@@ -65,5 +65,12 @@ $smarty->assign('is_logged_user', $is_logged_user);
 if($is_logged_user){
   $smarty->assign('uname', $_SESSION['uname']);
   $smarty->assign('fname', $_SESSION['fname']);
+  $user_events_query = "select * from user_has_ride_event where user_id = {$_SESSION['uid']}";
+  $user_events_arr = table_content($user_events_query);
+  $user_events = array();
+  foreach($user_events_arr as $ue) {
+    $user_events[] = $ue['ride_event_id'];
+  }
+  $smarty->assign('user_events', $user_events);
 }
 ?>
