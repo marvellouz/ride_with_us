@@ -143,7 +143,7 @@ function logout()
 //------------ajax try
 function validate()
 {
-	echo "wika q";
+	//echo "wika q";
 	$user = $_REQUEST['username'];
 	 
 	if(strlen($user) <= 0)
