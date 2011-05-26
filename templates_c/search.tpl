@@ -38,17 +38,20 @@
 		<th>Допълнителна информация</th>
 	</tr>
 	
-	{*{foreach from=$ride  item=rid}*}
-	{for $i=0 to $cnt-1}
+	{foreach from=$ride  item=rid}
+	
 	<tr>
-		
-		{foreach from=$ride[$i]  item=rid}
-		  <td><a href="{$webroot}/event/{$ride[$i]['id']}/">{$rid}</a>
-		  </td>		
-		{/foreach}
+	
+		<td><a href="{$webroot}/event/{$rid['id']}/">{$rid['username']}</a></td>
+		<td><a href="{$webroot}/event/{$rid['id']}/">{$rid['when_datetime']}</a></td>
+		<td><a href="{$webroot}/event/{$rid['id']}/">{$rid['displacement']}</a></td>
+		<td><a href="{$webroot}/event/{$rid['id']}/">{$rid['distance']}</a></td>
+		<td><a href="{$webroot}/event/{$rid['id']}/">{$rid['start']}</a></td>
+		<td><a href="{$webroot}/event/{$rid['id']}/">{$rid['end']}</a></td>
+		<td><a href="{$webroot}/event/{$rid['id']}/">{$rid['additional_info']}</a></td>
 		
 	</tr>
-	{/for}
+	{/foreach}
 	
 </table>
 {elseif isset($ride_error)}

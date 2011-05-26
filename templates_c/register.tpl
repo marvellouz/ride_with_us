@@ -23,10 +23,11 @@
 <br />
 <input type="text" id="lname" name="lname" />
 <br />
-<label for="">e-mail:</label>
+<label for="email">e-mail:</label>
 <br />
 <input type="text" id="email" name="email" />
 <br />
 <input type="submit" id="reg_submit" name="reg_submit" value="Register" />
 </form>
+<span id="msgform"></span>
 {/block}
