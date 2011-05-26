@@ -18,6 +18,7 @@ $routes = array(
   "myevents" => "user_events",
   "search" => "search_string",
   "attend" => "attend_event",
-  "validate" => "validate",
+  "validate_username" => "validate_username",
+  "validate_password" => "validate_password",
 );
 ?>

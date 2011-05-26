@@ -45,11 +45,11 @@ function search_string()
 				$first = false;
 				if($field=='displacement' || $field=='distance')
 				{
-					$where.= "$field=$value ";
+					$where.= "ru.$field=$value ";
 				}
 				else
 				{
-				$where .="$field like '%$value%' ";
+				$where .="ru.$field like '%$value%' ";
 				// Do what you want to do before the first element
 				}
 			} 
@@ -60,10 +60,10 @@ function search_string()
 				$select .=',';
 				if($field=='displacement' || $field=='distance')
 				{
-					$where.= " and $field=$value ";
+					$where.= " and ru.$field=$value ";
 				}
 				else
-				$where .=" and $field like '%$value%' ";
+				$where .=" and ru.$field like '%$value%' ";
 			}
 			// Do what you want to do for the current element
 		$select .= $field;
@@ -71,12 +71,16 @@ function search_string()
 		
 		//var_dump($select);
 		//var_dump($where);
-		$query_search="SELECT displacement, distance, start, end, additional_info FROM route WHERE $where";
+		//$query_search="SELECT displacement, distance, start, end, additional_info FROM route WHERE $where";
+	 	$query_search="SELECT us.username, re.when_datetime, ru.displacement, ru.distance, ru.start, ru.end, re.additional_info
+						FROM route ru join ride_event re on ru.id=re.route join user us on re.owner=us.id
+						WHERE $where"; 
 		//$query_search="SELECT $select FROM route WHERE $where";
 		//var_dump($query_search);
 		$ride=table_content($query_search);
+		//debug
 		//var_dump($ride);
-		
+
 		if($ride)
 		{
 			$cnt_rides=count($ride);

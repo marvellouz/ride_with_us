@@ -7,7 +7,8 @@
 content="text/html;charset=utf-8" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <link rel="stylesheet" href="{$site_media}/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="{$site_media}/js/check_user.js">
+<script type="text/javascript" src="{$site_media}/js/check_user.js"></script>
+<script type="text/javascript" src="{$site_media}/js/check_pass.js">
 </script>
 
 <!--[if lte IE 6]>

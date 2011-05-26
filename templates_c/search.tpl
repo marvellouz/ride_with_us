@@ -29,10 +29,12 @@
 {if isset($ride)}
 <table rules="all">
 	<tr>
+		<th>Създател</th>
+		<th>Дата</th>
 		<th>Денивелация</th>
 		<th>Дължина (км)</th>
-		<th>Начало</th>
-		<th>Край</th>
+		<th>Начална точка</th>
+		<th>Крайна точка</th>
 		<th>Допълнителна информация</th>
 	</tr>
 	
@@ -41,7 +43,7 @@
 	<tr>
 		
 		{foreach from=$ride[$i]  item=rid}
-		<td>{$rid}
+		<td><a href="{$webroot}/$month/$day">{$rid}</a>
 		</td>		
 		{/foreach}
 		

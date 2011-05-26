@@ -141,10 +141,49 @@ function logout()
 }
 
 //------------ajax try
-function validate()
+function validate_username()
 {
 	$user = $_REQUEST['username'];
 	//$user = $_POST['uname'];
+	 
+	if(strlen($user) <= 0)
+	{
+	  echo json_encode(array('code'  =>  -1,
+	  'result'  =>  'Invalid username, please try again.'
+	  ));
+	  die;
+	}
+
+	$query = "Select * from USER where username='$user'";
+	$result=execute_query($query);
+	$available=($result->num_rows);
+
+	 
+	if(!$available)
+	{
+	  echo json_encode(array('code'  =>  1,
+	  'result'  =>  "Success,username $user is still available"
+	  ));
+	  die;
+	}
+	else
+	{
+	  echo  json_encode(array('code'  =>  0,
+	  'result'  =>  "Sorry but username $user is already taken."
+	  ));
+	  die;
+	}
+	die;
+}
+
+function validate_password()
+{
+	$pass = $_REQUEST['password'];
+	$confpass = $_REQUEST['confirm_pass'];
+ 	//$user = $_POST['uname'];
+	$user='';
+	if($pass===$confpass)
+	$user=1;
 	 
 	if(strlen($user) <= 0)
 	{
