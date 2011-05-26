@@ -35,13 +35,19 @@
 		<th>Край</th>
 		<th>Допълнителна информация</th>
 	</tr>
-	<tr>
-	{foreach from=$ride  item=rid}
 	
+	{*{foreach from=$ride  item=rid}*}
+	{for $i=0 to $cnt-1}
+	<tr>
+		
+		{foreach from=$ride[$i]  item=rid}
 		<td>{$rid}
-		</td>
-	{/foreach}
+		</td>		
+		{/foreach}
+		
 	</tr>
+	{/for}
+	
 </table>
 {elseif isset($ride_error)}
 {$ride_error}

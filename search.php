@@ -75,12 +75,13 @@ function search_string()
 		//$query_search="SELECT $select FROM route WHERE $where";
 		//var_dump($query_search);
 		$ride=table_content($query_search);
+		//var_dump($ride);
 		
 		if($ride)
 		{
-				
+			$cnt_rides=count($ride);
 			return array(
-			'assign' => array('ride' => $ride[0]),
+			'assign' => array('ride' => $ride, 'cnt' => $cnt_rides),
 			'display' => 'templates_c/search.tpl');
 		//endif
 		}
