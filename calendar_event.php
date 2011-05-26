@@ -71,6 +71,8 @@ function event($arr) {
       'display' => 'templates_c/event.tpl');
 
   }
+  $_SESSION['flash'] = "За да видите подробна информация за събитието трябва да сте се логнали!";
+  header("Location: {$webroot}/login/");
 }
 
 function user_events() {
