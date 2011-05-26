@@ -25,9 +25,9 @@
 <br />
 <input type="submit" name="search_submit" value="Търси" />
 </form>
-<div id="found">
+<div id="found_results">
 {if isset($ride)}
-<table>
+<table rules="all">
 	<tr>
 		<th>Денивелация</th>
 		<th>Дължина (км)</th>

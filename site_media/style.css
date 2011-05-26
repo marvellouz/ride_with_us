@@ -92,3 +92,14 @@ h1 {
 #nav {
   padding-top:40px;
 }
+
+#found_results table
+{
+border: solid 1px black;
+}
+
+#found_results td, th
+{
+padding: 3px;
+}
+
